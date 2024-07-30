@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AvonaleSimplificado.Application\AvonaleSimplificado.Application.csproj" />
+      <ProjectReference Include="..\AvonaleSimplificado.Domain\AvonaleSimplificado.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

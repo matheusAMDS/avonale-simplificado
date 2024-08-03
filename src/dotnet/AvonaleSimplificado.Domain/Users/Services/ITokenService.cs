@@ -1,4 +1,4 @@
-using AvonaleSimplificado.Domain.Users.Services;
+using AvonaleSimplificado.Domain.Users;
 
 public interface ITokenService
 {

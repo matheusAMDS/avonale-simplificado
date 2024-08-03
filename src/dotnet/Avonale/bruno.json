@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Avonale",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

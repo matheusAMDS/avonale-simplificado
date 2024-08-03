@@ -5,11 +5,16 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./assets/main.css";
+import VueRouter from "vue-router";
 
 Vue.use(PiniaVuePlugin);
 
+const pinia = createPinia()
+
+Vue.use(VueRouter);
+
 new Vue({
-  router,
-  pinia: createPinia(),
   render: (h) => h(App),
+  pinia,
+  router,
 }).$mount("#app");

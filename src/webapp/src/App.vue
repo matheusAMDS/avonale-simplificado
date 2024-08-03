@@ -1,11 +1,7 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div id="app">
-    <header>
-    </header>
-
+  <div id="app" class="h-screen">
     <router-view />
   </div>
 </template>

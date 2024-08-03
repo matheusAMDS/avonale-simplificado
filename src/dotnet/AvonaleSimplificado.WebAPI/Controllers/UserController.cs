@@ -3,6 +3,7 @@ using AvonaleSimplificado.WebAPI.DTO;
 using AvonaleSimplificado.Domain.Users;
 using AvonaleSimplificado.Domain.Users.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AvonaleSimplificado.WebAPI.Controllers;
 
@@ -16,6 +17,26 @@ public class UserController(IUserService userService) : ControllerBase
     {
         var users = await userService.GetAllUsersAsync();
         return Ok(users.Select(UserDTO.From));
+    }
+
+    [Authorize]
+    [HttpGet("MyInfo")]
+    public async Task<ActionResult> GetMyUser()
+    {
+        var userIdRaw = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userIdRaw is null)
+        {
+            return Unauthorized();
+        }
+
+        var userId = new UserId(Guid.Parse(userIdRaw));
+        var user = await userService.GetUserByIdAsync(userId);
+        if (user is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(UserDTO.From(user));
     }
 
     [HttpPost]

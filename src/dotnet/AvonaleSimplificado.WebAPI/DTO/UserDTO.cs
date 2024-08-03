@@ -2,7 +2,7 @@ using AvonaleSimplificado.Domain.Users;
 
 namespace AvonaleSimplificado.WebAPI.DTO;
 
-public record UserDTO(string FirstName, string LastName, string Email, string CPF)
+public record UserDTO(string FirstName, string LastName, string Email, string CPF, string Type)
 {
     public static UserDTO From(User user)
     {
@@ -10,7 +10,8 @@ public record UserDTO(string FirstName, string LastName, string Email, string CP
             user.Name.FirstName,
             user.Name.LastName,
             user.Email.Value,
-            user.CPF.Value
+            user.CPF.Value,
+            user.Type.ToString()
         );
     }
 };

@@ -9,6 +9,11 @@ public class UserService(
     IHashingService hashingService
 ) : IUserService
 {
+    public async Task<User?> GetUserByIdAsync(UserId id)
+    {
+        return await userRepository.GetUserByIdAsync(id);
+    }
+
     public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
         return await userRepository.GetUsersAsync();

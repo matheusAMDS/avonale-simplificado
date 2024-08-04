@@ -21,10 +21,16 @@ public class UserService(
 
     public async Task<UserId> CreateUserAsync(Name name, Email email, Password password, CPF cpf)
     {
-        User? existingUser = await userRepository.GetUserByCPFAsync(cpf);
-        if (existingUser is not null)
+        User? existingUserWithCPF = await userRepository.GetUserByCPFAsync(cpf);
+        if (existingUserWithCPF is not null)
         {
-            throw new Exception("User already exists");
+            throw new Exception("User already exists (same CPF)");
+        }
+
+        User? existingUserWithEmail = await userRepository.GetUserByCPFAsync(cpf);
+        if (existingUserWithEmail is not null)
+        {
+            throw new Exception("User already exists (same Email)");
         }
 
         Password hashedPassword = new(hashingService.Hash(password.Value));

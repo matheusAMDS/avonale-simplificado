@@ -11,7 +11,7 @@ public class UserService(
 {
     public async Task<User?> GetUserByIdAsync(UserId id)
     {
-        return await userRepository.GetUserByIdAsync(id);
+        return await userRepository.GetByIdAsync(id);
     }
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()

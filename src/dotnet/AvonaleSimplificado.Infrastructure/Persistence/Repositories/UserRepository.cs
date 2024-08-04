@@ -4,37 +4,44 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AvonaleSimplificado.Infrastructure.Persistence.Repositories;
 
-public class UserRepository(ApplicationDbContext context) : IUserRepository
+public class UserRepository : BaseRepository<User, UserId>, IUserRepository
 {
+    private readonly ApplicationDbContext _context;
+
+    public UserRepository(ApplicationDbContext context) : base(context)
+    {
+        _context = context;
+    }
+
     public async Task<User> AddUserAsync(User user)
     {
-        context.Users.Add(user);
+        _context.Users.Add(user);
 
-        await context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
         return user;
     }
 
     public async Task<User?> GetUserByCPFAsync(CPF cpf)
     {
-        return await context.Users
+        return await _context.Users
             .FirstOrDefaultAsync(user => user.CPF == cpf);
     }
 
     public async Task<User?> GetUserByEmailAsync(Email email)
     {
-        return await context.Users
+        return await _context.Users
             .FirstOrDefaultAsync(user => user.Email == email);
     }
 
-    public async Task<User?> GetUserByIdAsync(UserId id)
-    {
-        return await context.Users
-            .FirstOrDefaultAsync(user => user.Id == id);
-    }
+    // public async Task<User?> GetUserByIdAsync(UserId id)
+    // {
+    //     return await _context.Users
+    //         .FirstOrDefaultAsync(user => user.Id == id);
+    // }
 
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
-        return await context.Users.ToListAsync();
+        return await _context.Users.ToListAsync();
     }
 }

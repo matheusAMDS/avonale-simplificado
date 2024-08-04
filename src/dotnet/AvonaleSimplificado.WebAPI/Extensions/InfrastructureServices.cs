@@ -1,4 +1,5 @@
 using AvonaleSimplificado.Application.Abstractions;
+using AvonaleSimplificado.Domain.Accounts.Repositories;
 using AvonaleSimplificado.Domain.Users;
 using AvonaleSimplificado.Infrastructure.Persistence.Contexts;
 using AvonaleSimplificado.Infrastructure.Persistence.Repositories;
@@ -22,6 +23,7 @@ public static class InfrastructureServices
         services.AddScoped<ITokenService, JwtTokenService>();
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
 
         return services;
     }

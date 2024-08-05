@@ -1,0 +1,15 @@
+meta {
+  name: My Account
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5002/Account/Me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzY2JlMDk3NS00MGQ2LTQwNjktOGYzOC1kMWM3OTE1NDE2Y2EiLCJ1bmlxdWVfbmFtZSI6Ik1hdGhldXMgQW5kcmFkZSIsInJvbGUiOiJDb21tb24iLCJuYmYiOjE3MjI4MTk5NDAsImV4cCI6MTcyMjgyMDg0MCwiaWF0IjoxNzIyODE5OTQwfQ.eTSSunFYEENeLCPvjaVbF8mYfEc9HleybRd-NQNW9N4
+}

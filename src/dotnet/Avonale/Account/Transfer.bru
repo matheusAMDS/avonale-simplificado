@@ -1,0 +1,22 @@
+meta {
+  name: Transfer
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:5002/Account/72d44dee-3120-48ba-861b-43ec5545d1b5/Transfer
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzY2JlMDk3NS00MGQ2LTQwNjktOGYzOC1kMWM3OTE1NDE2Y2EiLCJ1bmlxdWVfbmFtZSI6Ik1hdGhldXMgQW5kcmFkZSIsInJvbGUiOiJDb21tb24iLCJuYmYiOjE3MjI3OTkyMTMsImV4cCI6MTcyMjgwMDExMywiaWF0IjoxNzIyNzk5MjEzfQ.C0_Za915_SlOdMUB9aD2oDSNHQL33g827So1C7zBogo
+}
+
+body:json {
+  {
+    "amount": 23.6,
+    "fromAccount": "7afb3ee2-4948-47a6-a1f8-69afdb58745e"
+  }
+}

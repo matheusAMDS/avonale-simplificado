@@ -1,5 +1,6 @@
 using AvonaleSimplificado.Application.Abstractions;
 using AvonaleSimplificado.Domain.Users;
+using AvonaleSimplificado.Domain.Users.Contracts;
 using AvonaleSimplificado.Domain.Users.Services;
 
 namespace AvonaleSimplificado.Application.Users;
@@ -27,7 +28,7 @@ public class UserService(
             throw new Exception("User already exists (same CPF)");
         }
 
-        User? existingUserWithEmail = await userRepository.GetUserByCPFAsync(cpf);
+        User? existingUserWithEmail = await userRepository.GetUserByEmailAsync(email);
         if (existingUserWithEmail is not null)
         {
             throw new Exception("User already exists (same Email)");
@@ -46,5 +47,40 @@ public class UserService(
         User storedUser = await userRepository.AddUserAsync(newUser);
 
         return storedUser.Id;
+    }
+
+    public async Task EditUserAsync(UserId id, EditUserContract data)
+    {
+        var user = await userRepository.GetByIdAsync(id);
+        if (user is null)
+        {
+            throw new Exception("User not found");
+        }
+
+        if (data.Name is not null)
+        {
+            user.ChangeName(data.Name);
+        }
+
+        if (data.Email is not null && data.Email.Value != "")
+        {
+            user.ChangeEmail(data.Email);
+        }
+
+        var editedUser = await userRepository.UpdateAsync(user);
+        if (editedUser is null)
+        {
+            throw new Exception("Unable to edit user");
+        }
+
+        return;
+    }
+
+    public async Task DeleteUserAsync(UserId id)
+    {
+        if (!await userRepository.DeleteAsync(id))
+        {
+            throw new Exception("Unable to delete user");
+        }
     }
 }

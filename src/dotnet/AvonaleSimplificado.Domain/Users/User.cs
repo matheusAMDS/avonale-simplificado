@@ -25,4 +25,19 @@ public class User
         Password = password;
         CPF = cpf;
     }
+
+    public void ChangeName(Name name)
+    {
+        Name = name;
+    }
+
+    public void ChangeEmail(Email email)
+    {
+        Email = email;
+    }
+
+    public void ChangePassword(Password password)
+    {
+        Password = password;
+    }
 }

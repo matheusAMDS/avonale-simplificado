@@ -1,5 +1,7 @@
 using AvonaleSimplificado.Application.Abstractions;
 using AvonaleSimplificado.Domain.Accounts.Repositories;
+using AvonaleSimplificado.Domain.Common;
+using AvonaleSimplificado.Domain.Common.Repositories;
 using AvonaleSimplificado.Domain.Users;
 using AvonaleSimplificado.Infrastructure.Persistence.Contexts;
 using AvonaleSimplificado.Infrastructure.Persistence.Repositories;
@@ -24,6 +26,9 @@ public static class InfrastructureServices
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

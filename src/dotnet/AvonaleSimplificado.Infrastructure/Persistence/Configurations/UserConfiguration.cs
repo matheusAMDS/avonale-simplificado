@@ -16,7 +16,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(e => e.Type).HasConversion<int>();
 
-        builder.OwnsOne(e => e.Name, nameBuilder => {
+        builder.OwnsOne(e => e.Name, nameBuilder =>
+        {
             nameBuilder.Property(p => p.FirstName).HasColumnName("FirstName");
 
             nameBuilder.Property(p => p.LastName).HasColumnName("LastName");
@@ -24,7 +25,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasIndex(e => e.Email).IsUnique();
         builder.Property(e => e.Email).HasConversion(
-            email => email.Value, 
+            email => email.Value,
             value => new Email(value)
         );
 
@@ -41,6 +42,26 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             )
             .HasMaxLength(11)
             .IsFixedLength();
+
+        // this.Seed(builder);
     }
+
+    // public void Seed(EntityTypeBuilder<User> builder)
+    // {
+    //     var hashingService = new HashingService();
+
+    //     builder.HasData(
+    //         new
+    //         {
+    //             Id = new UserId(Guid.NewGuid()),
+    //             Type = UserType.Admin,
+    //             FirstName = "Administrador",
+    //             LastName = "Avonale",
+    //             Email = new Email("admin@email.com"),
+    //             Password = new Password(hashingService.Hash("Admin123@")),
+    //             CPF = new CPF("10574073051")
+    //         }
+    //     );
+    // }
 
 }

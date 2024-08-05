@@ -10,20 +10,26 @@ interface UserInfo {
   type: "Admin" | "Common"
 }
 
+interface SignUpInput {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  cpf: string
+}
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     info: {} as UserInfo,
-    isLoggedIn: false,
-    token: ""
+    token: localStorage.getItem('token')
   }),
   getters: {
-    name: state => state.info.firstName + "" + state.info.lastName
+    name: state => state.info.firstName + "" + state.info.lastName,
+    isLoggedIn: state => !!state.token
   },
   actions: {
     async getUserData(): Promise<ActionResult<UserInfo>> {
-      const token = localStorage.getItem("token");
-
-      if (!token) return {
+      if (!this.token) return {
         success: false,
         error: "Usuário não está autenticado"
       };
@@ -31,6 +37,7 @@ export const useUserStore = defineStore("user", {
       const response = await api.get("/User/MyInfo");
       if (response.status != 200) {
         console.log("getUserData", response.data)
+        this.info = response.data
         return {
           success: false,
           error: `Não foi possível recuperar os dados do usuário`
@@ -50,12 +57,10 @@ export const useUserStore = defineStore("user", {
 
         localStorage.setItem("token", token);
 
-        this.isLoggedIn = true
         this.token = token
 
         const userDataResponse = await this.getUserData();
         if (userDataResponse.success && userDataResponse.data) {
-          this.info = userDataResponse.data
 
           return { success: true }
         } else {
@@ -64,6 +69,21 @@ export const useUserStore = defineStore("user", {
       } else {
         return { success: false, error: "Erro na tentativa de login" }
       }
+    },
+    async signUp(input: SignUpInput): Promise<ActionResult> {
+      try {
+        const response = await api.post("/User", input)
+
+        return { success: true, data: response.data }
+      } catch (error: any) {
+        return { success: false, error: error.response.data }
+      }
+    },
+    logout() {
+      localStorage.removeItem("token")
+
+      this.token = ""
+      this.info = {} as UserInfo
     }
-  }
+  },
 })

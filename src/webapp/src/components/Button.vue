@@ -14,7 +14,7 @@ export default {
     },
   },
   computed: {
-    bgColor: function () {
+    btnVariant: function () {
       return {
         "bg-primary": this.variant == "primary",
         "bg-secondary": this.variant == "secondary",
@@ -26,7 +26,11 @@ export default {
 </script>
 
 <template>
-  <button :type="type" :class="['w-full p-2 rounded', bgColor]">
+  <button
+    :type="type"
+    :class="['p-2 rounded w-auto', btnVariant]"
+    @click="$emit('click')"
+  >
     <span class="font-medium">{{ label }}</span>
   </button>
 </template>

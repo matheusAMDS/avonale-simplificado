@@ -4,6 +4,7 @@ using AvonaleSimplificado.Domain.Users;
 using AvonaleSimplificado.Domain.Users.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using AvonaleSimplificado.Domain.Users.Contracts;
 
 namespace AvonaleSimplificado.WebAPI.Controllers;
 
@@ -59,4 +60,40 @@ public class UserController(IUserService userService) : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> EditUser(Guid id, [FromBody] EditUserRequest dto)
+    {
+        try
+        {
+            var contract = new EditUserContract(
+                new Name(dto.FirstName, dto.LastName),
+                new Email(dto.Email)
+            );
+            var userId = new UserId(id);
+
+            await userService.EditUserAsync(userId, contract);
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUser(Guid id)
+    {
+        try
+        {
+            await userService.DeleteUserAsync(new UserId(id));
+
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
 }

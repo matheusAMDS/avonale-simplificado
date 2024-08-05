@@ -1,0 +1,23 @@
+meta {
+  name: Editar Usuário
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:5002/User/a263e6d0-b01e-41de-b5cf-6c550d5f733a
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDEyMmFlOS03ZDM5LTQ2ODctOWZkYy1kZDA1MzQ5YzY1YzQiLCJ1bmlxdWVfbmFtZSI6Ik1hdGhldXMgU2lsdmEiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MjI3NDQ3NDAsImV4cCI6MTcyMjc0NTY0MCwiaWF0IjoxNzIyNzQ0NzQwfQ.41iIghbUgwn5AR80mjYuC5_cMEpGO6D_sK_bRdpg2k4
+}
+
+body:json {
+  {
+    "firstName": "Matheus",
+    "lastName": "Foda"
+  }
+  
+}

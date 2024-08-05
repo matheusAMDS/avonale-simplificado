@@ -34,12 +34,6 @@ public class UserRepository : BaseRepository<User, UserId>, IUserRepository
             .FirstOrDefaultAsync(user => user.Email == email);
     }
 
-    // public async Task<User?> GetUserByIdAsync(UserId id)
-    // {
-    //     return await _context.Users
-    //         .FirstOrDefaultAsync(user => user.Id == id);
-    // }
-
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
         return await _context.Users.ToListAsync();

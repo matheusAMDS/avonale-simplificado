@@ -22,6 +22,53 @@ namespace AvonaleSimplificado.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AvonaleSimplificado.Domain.Accounts.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("AvonaleSimplificado.Domain.Accounts.Transaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("FromAccount")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ToAccount")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FromAccount");
+
+                    b.HasIndex("ToAccount");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("AvonaleSimplificado.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -53,6 +100,38 @@ namespace AvonaleSimplificado.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("962807e1-bed4-4613-ad1f-6bdb41cf4215"),
+                            CPF = "10574073051",
+                            Email = "admin@email.com",
+                            Password = "$2a$11$hS754Op/LwLTJaVttntGXu4ex6ckCnIh8huehn8khSO.OU5iyr/f.",
+                            Type = 2
+                        });
+                });
+
+            modelBuilder.Entity("AvonaleSimplificado.Domain.Accounts.Account", b =>
+                {
+                    b.HasOne("AvonaleSimplificado.Domain.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AvonaleSimplificado.Domain.Accounts.Transaction", b =>
+                {
+                    b.HasOne("AvonaleSimplificado.Domain.Accounts.Account", null)
+                        .WithMany()
+                        .HasForeignKey("FromAccount");
+
+                    b.HasOne("AvonaleSimplificado.Domain.Accounts.Account", null)
+                        .WithMany()
+                        .HasForeignKey("ToAccount")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AvonaleSimplificado.Domain.Users.User", b =>

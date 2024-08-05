@@ -67,7 +67,9 @@ export default {
       </form>
 
       <div class="flex justify-center">
-        <router-link to="/signup">Já está cadastrado?</router-link>
+        <router-link :to="{ name: 'signup' }"
+          >Ainda não está cadastrado?</router-link
+        >
       </div>
     </section>
   </main>

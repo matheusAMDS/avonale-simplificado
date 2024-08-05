@@ -1,0 +1,21 @@
+meta {
+  name: Depósito
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5002/Account/7afb3ee2-4948-47a6-a1f8-69afdb58745e/Deposit
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWQ3NDE3NS0wZDkzLTRkNGYtYjE2ZC01MWE2MTIxYzcxZTAiLCJ1bmlxdWVfbmFtZSI6Ik1hdGhldXMgRm9kYSIsInJvbGUiOiJDb21tb24iLCJuYmYiOjE3MjI3OTU2MjUsImV4cCI6MTcyMjc5NjUyNSwiaWF0IjoxNzIyNzk1NjI1fQ.FV7oooUtd4Qw8JhKpUX7EoKtj5b-8PYisCFI87WAz_A
+}
+
+body:json {
+  {
+    "amount": 300.0
+  }
+}

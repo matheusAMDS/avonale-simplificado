@@ -1,0 +1,21 @@
+meta {
+  name: Create Account
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:5002/Account
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1MWQ3NDE3NS0wZDkzLTRkNGYtYjE2ZC01MWE2MTIxYzcxZTAiLCJ1bmlxdWVfbmFtZSI6Ik1hdGhldXMgRm9kYSIsInJvbGUiOiJDb21tb24iLCJuYmYiOjE3MjI3OTc4NTMsImV4cCI6MTcyMjc5ODc1MywiaWF0IjoxNzIyNzk3ODUzfQ.4aCczSv9zYo3MR6ZTTZAQ6ivbQg3N5NfMEicdqlQ0v8
+}
+
+body:json {
+  {
+    "userId": "51d74175-0d93-4d4f-b16d-51a6121c71e0"
+  }
+}

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AvonaleSimplificado.Infrastructure.Persistence.Repositories;
 
 public abstract class BaseRepository<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey>
-    where TEntity : class 
+    where TEntity : class
 {
     private readonly ApplicationDbContext _dbContext;
 
